@@ -21,6 +21,14 @@ def format_weeday_line(calendar_str):
     return calendar_str.replace(weekday_line, new_weekday_line)
 
 
+# def validate_month(value):
+#     month = int(value)
+#     if 1 <= month <= 12:
+#         return month
+#     else:
+#         raise argparse.ArgumentTypeError(f"Please enter a value between 1 and 12.")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Process data for a specific year and month"
@@ -36,6 +44,7 @@ if __name__ == "__main__":
         "-m",
         "--month",
         type=int,
+        choices=range(1,13),
         default=datetime.now().month,
         help="Month (1-12, optional, defaults to current month)",
     )
