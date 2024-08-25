@@ -1,8 +1,13 @@
 #! /usr/bin/env python3
 
+import os
+import sys
 import argparse
-from src.bowling_game import Game
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(current_dir, "src"))
+
+from bowling_game import Game
 
 def main(roll_sequence):
     bowling_game = Game(roll_sequence)

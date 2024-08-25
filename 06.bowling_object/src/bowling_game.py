@@ -1,4 +1,4 @@
-from src.bowling_frame import Frame
+from bowling_frame import Frame
 
 
 class Game:
