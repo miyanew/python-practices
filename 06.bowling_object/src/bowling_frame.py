@@ -1,4 +1,5 @@
 from itertools import islice
+from bowling_shot import Shot
 
 
 class Frame:
@@ -16,10 +17,10 @@ class Frame:
         )
 
     def add(self, pin):
-        self.shots.append(pin)
+        self.shots.append(Shot(pin))
 
     def calc_score(self, frames):
-        score = sum(list(map(int, self.shots)))
+        score = sum(s.score() for s in self.shots)
         if self.number < Frame.LAST_FRAME_NUM:
             next_frames = frames[self.number :]
             if self._is_strike():
@@ -29,17 +30,17 @@ class Frame:
         return score
 
     def _is_strike(self):
-        return self.shots and self.shots[0] == "10"
+        return self.shots and self.shots[0].is_strike()
 
     def _is_spare(self):
-        return (not self._is_strike()) and sum(map(int, self.shots)) == 10
+        return (not self._is_strike()) and sum(s.score() for s in self.shots) == 10
 
     def _is_last_frame(self):
         return self.number == Frame.LAST_FRAME_NUM
 
     def _strike_bonus(self, next_frames):
-        next_shots = (shot for frame in next_frames for shot in frame.shots)
-        return sum(map(int, islice(next_shots, 2)))
+        next_shots = (s.score() for frame in next_frames for s in frame.shots)
+        return sum(islice(next_shots, 2))
 
     def _spare_bonus(self, next_frame):
-        return int(next_frame.shots[0])
+        return next_frame.shots[0].score()

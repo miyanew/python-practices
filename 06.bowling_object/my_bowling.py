@@ -9,6 +9,7 @@ sys.path.append(os.path.join(current_dir, "src"))
 
 from bowling_game import Game
 
+
 def main(roll_sequence):
     bowling_game = Game(roll_sequence)
     print(bowling_game.calc_score())
